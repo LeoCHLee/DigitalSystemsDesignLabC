@@ -1,0 +1,50 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 13.02.2024 09:45:51
+// Design Name: 
+// Module Name: Six_bit_ripple_adder
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module Six_bit_ripple_adder(
+    input [5:0] x,
+    input  [5:0] y,
+    input sel,
+    output overflow,
+    output c_out,
+    output [5:0] sum
+    );
+    
+    wire b0, b1, b2, b3, b4, b5;
+    assign b0 = y[0] ^ sel;
+    assign b1 = y[1] ^ sel;
+    assign b2 = y[2] ^ sel;
+    assign b3 = y[3] ^ sel;
+    assign b4 = y[4] ^ sel;
+    assign b5 = y[5] ^ sel;
+
+    wire c1, c2, c3, c4, c5;
+    FullAdder bit0 (x[0], b0, sel, c1, sum[0]);
+    FullAdder bit1 (x[1], b1, c1, c2, sum[1]);
+    FullAdder bit2 (x[2], b2, c2, c3, sum[2]);
+    FullAdder bit3 (x[3], b3, c3, c4, sum[3]);
+    FullAdder bit4 (x[4], b4, c3, c4, sum[4]);
+    FullAdder bit5 (x[5], b5, c3, c4, sum[5]);
+    xor g0 (overflow, c4, c5);
+    assign c_out = c4;
+
+endmodule
