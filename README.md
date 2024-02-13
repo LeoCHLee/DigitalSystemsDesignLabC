@@ -1,1 +1,2 @@
-# DigitalSystemsDesignLabC
+# DigitalSystemsDesignLabs
+LabC = 6bitRippleAdder
